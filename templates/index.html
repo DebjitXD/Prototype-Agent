@@ -1,0 +1,139 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prototype Agent</title>
+<style id="css">
+*{box-sizing:border-box} [hidden]{display:none!important}
+body{margin:0;font-family:Segoe UI,Inter,Arial,sans-serif;color:#1f2933;min-height:100vh;background-color:#f1f3f6;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%23111' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(14 30) rotate(-14)'%3E%3Cpath d='M0 0H5L8-6L13 6L18-6L23 6L26 0H31'/%3E%3C/g%3E%3Cg transform='translate(88 24) rotate(12)'%3E%3Cpath d='M0 0H10M10-9V9M16-9V9M16 0H26'/%3E%3C/g%3E%3Cg transform='translate(150 16) rotate(18)'%3E%3Crect width='24' height='18' rx='2'/%3E%3Cpath d='M6 0V-5M12 0V-5M18 0V-5M6 18V23M12 18V23M18 18V23'/%3E%3C/g%3E%3Cg transform='translate(205 10) rotate(-10)'%3E%3Cpath d='M8 0L0 14H7L5 24L15 8H8Z'/%3E%3C/g%3E%3Cg transform='translate(30 68) rotate(-8)'%3E%3Cpath d='M0 0V8M-8 8H8M-5 12H5M-2 16H2'/%3E%3C/g%3E%3Cg transform='translate(76 96) rotate(-16)'%3E%3Cpath d='M0-8V8L14 0ZM14-8V8M-8 0H0M14 0H22M18-10l6-6'/%3E%3C/g%3E%3Cg transform='translate(136 84) rotate(14)'%3E%3Cpath d='M0 0q6-14 12 0t12 0t12 0'/%3E%3C/g%3E%3Cg transform='translate(194 72) rotate(22)'%3E%3Cpath d='M0 0q3-10 6 0q3-10 6 0q3-10 6 0q3-10 6 0'/%3E%3C/g%3E%3Cg transform='translate(30 150) rotate(0)'%3E%3Ccircle r='9'/%3E%3Cpath d='M-10 0H-3M-3-6V6M-3-2L6-7M-3 2L6 7'/%3E%3C/g%3E%3Cg transform='translate(76 140) rotate(-12)'%3E%3Cpath d='M0-9V9L16 0ZM-6-4H0M-6 4H0M16 0H22'/%3E%3C/g%3E%3Cg transform='translate(146 146) rotate(10)'%3E%3Cpath d='M0 6H4M4-2V14M10 2V10M10 6H20'/%3E%3C/g%3E%3Cg transform='translate(200 146) rotate(-8)'%3E%3Cpath d='M0 6q10-10 20 0M4 10q6-6 12 0M10 14h.1'/%3E%3C/g%3E%3Cg transform='translate(12 204) rotate(-18)'%3E%3Crect width='24' height='18' rx='2'/%3E%3Cpath d='M6 0V-5M12 0V-5M18 0V-5M6 18V23M12 18V23M18 18V23'/%3E%3C/g%3E%3Cg transform='translate(66 214) rotate(16)'%3E%3Cpath d='M0 0H5L8-6L13 6L18-6L23 6L26 0H31'/%3E%3C/g%3E%3Cg transform='translate(130 204) rotate(-10)'%3E%3Cpath d='M0 0H10M10-9V9M16-9V9M16 0H26'/%3E%3C/g%3E%3Cg transform='translate(198 196) rotate(12)'%3E%3Cpath d='M0 0V8M-8 8H8M-5 12H5M-2 16H2'/%3E%3C/g%3E%3Cpath d='M58 56h6M61 53v6M122 52h6M125 49v6M180 118h6M183 115v6M110 118h6M113 115v6M48 118h6M51 115v6M226 112h6M229 109v6M110 180h6M113 177v6M232 224h6M235 221v6M170 176h6M173 173v6'/%3E%3C/svg%3E");filter:blur(3px)}
+.tools{position:fixed;top:16px;right:20px;z-index:5;display:flex;gap:2px;background:#ffffff80;border:1px solid #ffffffcc;border-radius:999px;padding:4px;box-shadow:0 4px 16px #1f293326;backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%)}
+button{border:0;border-radius:8px;padding:11px 22px;font-weight:600;font-size:15px;cursor:pointer;color:#fff;background:#1f2933;font-family:inherit;transition:background .15s,transform .15s}
+button:hover{background:#3e4c59;transform:translateY(-1px)}
+.ic{width:40px;height:40px;padding:0;border-radius:50%;background:transparent;color:#323f4b;font-size:18px} .ic:hover{background:#eef1f5;transform:none} .ic.q{color:#dc2626}
+.ok{background:#059669} .ok:hover{background:#047857} .no{background:#dc2626} .no:hover{background:#b91c1c} .alt{background:#fff;color:#1f2933;border:1px solid #cbd2d9} .alt:hover{background:#f1f3f6}
+main{max-width:1020px;margin:0 auto;padding:60px 18px 60px}
+.hero{text-align:center;padding:48px 20px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#1f2933,#3e4c59);box-shadow:0 10px 30px #1f293330}
+.hero h1{font-size:44px;font-weight:700;margin:0 0 10px;line-height:1.15;color:#fff;letter-spacing:-.5px} .hero p{color:#cbd2d9;font-size:18px;margin:0}
+#steps{display:flex;align-items:center;justify-content:center;margin:26px 0 6px;flex-wrap:wrap;padding:20px 12px 12px;border-radius:20px;background:linear-gradient(135deg,#ffffffb3,#ffffff4d);border:1px solid #ffffffcc;box-shadow:0 8px 32px #1f293326,inset 0 1px 0 #ffffffe6;backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%)}
+.st{display:flex;flex-direction:column;align-items:center;gap:6px;width:130px;font-size:13px;font-weight:600;color:#52606d;text-align:center}
+.st b{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:#fff;border:2px solid #cbd2d9;box-shadow:0 4px 12px #1f293326}
+.st.act{color:#1f2933} .st.act b{border-color:#1f2933;animation:pu 1.5s infinite} .st.done{color:#059669} .st.done b{background:#059669;color:#fff;border-color:#059669}
+.ln{height:2px;width:50px;background:#cbd2d9;margin-bottom:22px} .ln.done{background:#059669}
+@keyframes pu{0%,100%{box-shadow:0 0 0 0 #1f293340}50%{box-shadow:0 0 0 10px #1f293300}}
+.card,details{--c:#1f2933;background:linear-gradient(135deg,#ffffffb3,#ffffff4d);border:1px solid #ffffffcc;border-left:5px solid var(--c);border-radius:14px;padding:20px 24px;margin:16px 0;box-shadow:0 8px 32px #1f293326,inset 0 1px 0 #ffffffe6;backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%)}
+.card h2{margin:0 0 6px;font-size:22px} summary{cursor:pointer;font-weight:700;font-size:17px;color:var(--c)}
+.badge{display:inline-block;margin-left:10px;padding:3px 12px;border-radius:20px;font-size:11px;letter-spacing:.5px;background:#fef3c7;color:#92400e;vertical-align:middle}
+h4{margin:18px 0 6px;color:var(--c);text-transform:uppercase;letter-spacing:1px;font-size:12px} p{line-height:1.55}
+ul{padding-left:20px;line-height:1.65} li::marker{color:var(--c)}
+.tw{overflow-x:auto} table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #e1e5ea;border-radius:10px;overflow:hidden}
+th{background:#1f29330f;color:#323f4b;text-align:left;padding:9px 12px;font-size:13px} td{padding:9px 12px;border-top:1px solid #edf0f3} tr:hover td{background:#f8f9fb}
+.codewrap{position:relative} .copy{position:absolute;right:10px;top:10px;padding:5px 12px;font-size:12px;background:#52606d}
+pre.code{background:#1f2933;color:#e4e7eb;padding:16px;border-radius:10px;overflow:auto;font-size:13px}
+pre.mermaid{background:#ffffff59;border-radius:10px;padding:16px;text-align:center;overflow:auto;border:1px solid #e1e5ea}
+textarea,input,select{width:100%;padding:12px;border:1px solid #cbd2d9;border-radius:10px;font-size:16px;background:#ffffff73;color:#1f2933;font-family:inherit}
+textarea:focus,input:focus,select:focus{outline:none;border-color:#1f2933;box-shadow:0 0 0 3px #1f293318}
+.bar{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap} .bar input{flex:1;min-width:200px}
+#busy{display:flex;align-items:center;gap:18px} .spin{width:34px;height:34px;border:4px solid #e1e5ea;border-top-color:#1f2933;border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}} small{color:#7b8794}
+#err{background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:14px 18px;margin:16px 0}
+.win{text-align:center} .win h2{font-size:30px}
+dialog{border:1px solid #d9dee5;border-radius:16px;padding:24px;width:430px;background:#ffffffd9;color:#1f2933;backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%)} dialog::backdrop{background:#1f293399}
+dialog label{display:block;margin:12px 0 4px;font-weight:600;color:#52606d} dialog h2{margin-top:0}
+#prog{display:flex;align-items:center;gap:12px;margin:12px 4px} .pbar{flex:1;height:14px;border-radius:99px;background:#ffffff80;border:1px solid #ffffffcc;overflow:hidden;box-shadow:inset 0 1px 3px #1f293322} #pfill{display:block;height:100%;width:0;border-radius:99px;transition:width .5s;background:linear-gradient(90deg,#1f2933,#2563eb,#059669)} #ptxt{font-weight:700;min-width:46px;text-align:right}
+@media print{ #prog{display:none} body::before{display:none} .tools,.bar,#steps,.copy,button{display:none} body{background:#fff} .card,details{box-shadow:none} pre.code{background:#fff;color:#000;border:1px solid #999}}
+</style></head><body>
+<div class="tools"><button class="ic" title="Settings" onclick="sd.showModal()">⚙</button><button class="ic q" title="Quit app" onclick="quit()">⏻</button></div>
+<main>
+<div class="hero" id="hero"><h1>Turn an idea into a working prototype</h1><p>Describe it in plain English. Four AI agents plan it. You approve every step.</p></div>
+<div id="steps"></div>
+<div id="prog" hidden><div class="pbar"><i id="pfill"></i></div><span id="ptxt">0%</span></div>
+<div class="card" id="start"><h2>What do you want to build?</h2>
+<textarea id="req" rows="3" placeholder="e.g. Monitor room temperature, show it on an OLED display, and turn on a fan above 30 degrees"></textarea>
+<div class="bar"><select id="board" style="width:210px"><option>ESP32</option><option>Raspberry Pi Pico</option><option>Arduino Uno</option></select>
+<button onclick="begin()">Start Building →</button></div></div>
+<div id="busy" class="card" hidden></div><div id="err" hidden></div>
+<div id="hist"></div><div id="cur"></div>
+</main>
+<dialog id="sd"><h2>Settings</h2>
+<label>AI source</label><select id="mode"><option value="nvidia">NVIDIA (online, free key)</option><option value="ollama">Ollama (offline, this laptop)</option></select>
+<label>NVIDIA API key</label><input id="key" type="password" placeholder="nvapi-… (empty = keep saved key)">
+<label>NVIDIA model ID</label><input id="nm"><label>Ollama model</label><input id="om">
+<div class="bar"><button class="ok" onclick="save()">Save</button><button class="alt" onclick="sd.close()">Close</button><span id="note"></span></div></dialog>
+<script src="/static/mermaid.min.js"></script>
+<script>
+const S=[{k:'requirement',n:'1. Requirement Agent',c:'#2563eb',e:'📝',m:'Reading your requirement…'},{k:'hardware',n:'2. Hardware Planning Agent',c:'#d97706',e:'🔌',m:'Choosing components and pins…'},
+{k:'firmware',n:'3. Firmware Agent',c:'#7c3aed',e:'💻',m:'Writing the firmware…'},{k:'test_plan',n:'4. Test Agent',c:'#059669',e:'🧪',m:'Designing the tests…'}];
+let art={},i=-1,res=null,tm=null; const $=id=>document.getElementById(id);
+function setPct(p){p=Math.round(p);$('pfill').style.width=p+'%';$('ptxt').textContent=p+'%'}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function steps(){$('steps').innerHTML=S.map((s,j)=>'<div class="st '+(j<i?'done':j==i?'act':'')+'"><b>'+(j<i?'✓':s.e)+'</b><span>'+s.n.slice(3)+'</span></div>'+
+ (j<S.length-1?'<div class="ln '+(j<i?'done':'')+'"></div>':'')).join('')}
+steps();
+if(window.mermaid)mermaid.initialize({startOnLoad:false,theme:'base',themeVariables:{primaryColor:'#ffffff',primaryTextColor:'#1f2933',primaryBorderColor:'#52606d',lineColor:'#52606d',edgeLabelBackground:'#f8f9fb',fontSize:'15px'}});
+
+function diagram(lines){const id={};
+ const b=n=>{n=n.replace(/\s*\(.*?\)/g,'').trim().replace(/"/g,"'");if(!(n in id))id[n]='n'+Object.keys(id).length;return id[n]+'["'+n+'"]'};
+ let d='graph LR\n';
+ lines.forEach(l=>{const p=l.split('->');for(let j=0;j<p.length-1;j++){const m=p[j+1].match(/\((.*?)\)/);
+  d+='  '+b(p[j])+(m?' -->|"'+m[1].replace(/"/g,"'")+'"| ':' --> ')+b(p[j+1])+'\n'}});return d}
+
+function render(v,key){
+ if(Array.isArray(v)){
+  if(key==='block_diagram')return '<pre class="mermaid">'+diagram(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</pre>';
+  if(v.length&&typeof v[0]==='object'){const h=Object.keys(v[0]);
+   return '<div class="tw"><table><tr>'+h.map(x=>'<th>'+esc(x.replace(/_/g,' '))+'</th>').join('')+'</tr>'+
+    v.map(r=>'<tr>'+h.map(x=>'<td>'+esc(r[x]??'')+'</td>').join('')+'</tr>').join('')+'</table></div>'}
+  return '<ul>'+v.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'}
+ if(v&&typeof v==='object')return Object.entries(v).map(([k,x])=>'<h4>'+esc(k.replace(/_/g,' '))+'</h4>'+render(x,k)).join('');
+ if(key==='code')return '<div class="codewrap"><button class="copy" onclick="cp(this)">Copy</button><pre class="code">'+esc(v)+'</pre></div>';
+ return '<p>'+esc(v)+'</p>'}
+
+function cp(b){navigator.clipboard.writeText(b.nextElementSibling.textContent);b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy',1500)}
+async function draw(){try{await mermaid.run({querySelector:'.mermaid'})}catch(e){}}
+
+function begin(){const t=$('req').value.trim(); if(!t)return alert('Please type a requirement first.');
+ art={user_requirement:t,board:$('board').value}; $('start').hidden=true; $('hero').hidden=true; $('prog').hidden=false; i=0; run('')}
+
+async function run(fb){
+ steps(); setPct(i*25); clearInterval(tm); const t0=Date.now(); tm=setInterval(()=>setPct(i*25+22.5*(1-Math.exp(-(Date.now()-t0)/45000))),500); $('busy').hidden=false; $('err').hidden=true; $('cur').innerHTML='';
+ $('busy').style.setProperty('--c',S[i].c);
+ $('busy').innerHTML='<div class="spin"></div><div><b style="font-size:18px">'+S[i].e+' '+S[i].m+'</b><br><small>The AI is working — this can take up to 2 minutes.</small></div>';
+ try{const r=await fetch('/api/stage',{method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({stage:S[i].k,artifacts:art,feedback:fb})});
+  const d=await r.json(); $('busy').hidden=true;
+  if(d.error)return fail(d.error,fb); res=d.result; show();
+ }catch(e){$('busy').hidden=true;fail('Cannot reach the app: '+e,fb)}}
+
+function fail(m,fb){clearInterval(tm);const e=$('err');e.hidden=false;
+ e.innerHTML='<b>⚠ '+esc(m)+'</b><div class="bar"><button onclick="run(\''+esc(fb||'').replace(/'/g,'')+'\')">↻ Retry</button><button class="alt" onclick="sd.showModal()">Settings</button></div>'}
+
+function show(){
+ clearInterval(tm); setPct(i*25+22.5);
+ $('cur').innerHTML='<div class="card" style="--c:'+S[i].c+'"><h2>'+S[i].e+' '+S[i].n.slice(3)+'<span class="badge">AWAITING APPROVAL</span></h2><div id="out">'+render(res)+
+ '</div><div class="bar"><button class="ok" onclick="approve()">✔ Approve</button><input id="fb" placeholder="Not right? Say what should change…"><button class="no" onclick="reject()">✖ Reject &amp; redo</button></div></div>';
+ draw()}
+
+function reject(){const f=$('fb').value.trim(); if(!f)return alert('Type what should change, then press Reject.'); run(f)}
+
+function approve(){art[S[i].k]=res; const o=$('out'); o.removeAttribute('id');
+ const d=document.createElement('details'); d.style.setProperty('--c',S[i].c); d.innerHTML='<summary>✔ '+S[i].e+' '+S[i].n.slice(3)+' (approved)</summary>';
+ d.appendChild(o); $('hist').appendChild(d); $('cur').innerHTML=''; i++; i<S.length?run(''):finish()}
+
+function finish(){clearInterval(tm); setPct(100); steps(); document.querySelectorAll('details').forEach(d=>d.open=true);
+ $('cur').innerHTML='<div class="card win" style="--c:#059669"><h2>Blueprint complete</h2><p>All four stages are approved. Build the prototype from the tables and firmware above.</p><div class="bar" style="justify-content:center">'+
+ '<button class="ok" onclick="dl()">⬇ Download ZIP</button><button onclick="print()">🖨 Print / Save PDF</button><button class="alt" onclick="location.reload()">＋ New project</button></div></div>'}
+
+async function dl(){const body=$('hist').innerHTML.replace(/<button class="copy"[^>]*>.*?<\/button>/g,'');
+ const html='<html><head><meta charset="utf-8"><style>'+$('css').textContent+'</style></head><body><main><h1>'+esc(art.requirement.project_name||'Prototype')+'</h1>'+body+'</main></body></html>';
+ const r=await fetch('/api/download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({artifacts:art,report_html:html})});
+ const a=document.createElement('a'); a.href=URL.createObjectURL(await r.blob()); a.download='prototype_output.zip'; a.click()}
+
+async function loadSettings(){const s=await (await fetch('/api/settings')).json();
+ $('mode').value=s.mode;$('nm').value=s.nvidia_model;$('om').value=s.ollama_model;
+ $('key').placeholder=s.has_key?'✔ Key saved — paste a new one only to replace it':'nvapi-…';
+ if(s.mode==='nvidia'&&!s.has_key){$('note').textContent='Paste your NVIDIA key first';if(!sd.open)sd.showModal()}}
+async function save(){await fetch('/api/settings',{method:'POST',headers:{'Content-Type':'application/json'},
+ body:JSON.stringify({mode:$('mode').value,nvidia_key:$('key').value,nvidia_model:$('nm').value,ollama_model:$('om').value})});
+ $('key').value='';await loadSettings();$('note').textContent='✔ Saved';setTimeout(()=>{sd.close();$('note').textContent=''},700)}
+async function quit(){if(!confirm('Close the app?'))return; await fetch('/api/quit',{method:'POST'}); document.body.innerHTML='<h2 style="padding:60px;text-align:center">App closed. You can close this tab.</h2>'}
+loadSettings();
+</script></body></html>
