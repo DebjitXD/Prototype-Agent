@@ -119,9 +119,8 @@ PrototypeAgent/
 - The AI must return valid JSON; the app retries once, then asks you to press **Retry**.
 - It produces a plan and starter firmware, not a verified design.
 
-## Author
-
-**Debjit**, B.Tech ECE, Institute of Engineering & Management (IEM), Kolkata
+## Team
+- **Debjit Biswas** - [@DebjitXD](https://github.com/DebjitXD)
 
 ## License
 
