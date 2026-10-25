@@ -1,0 +1,5 @@
+* text=auto
+*.bat text eol=crlf
+*.sh  text eol=lf
+# Bundled third-party library: hide from GitHub language stats and diffs
+static/mermaid.min.js linguist-vendored -diff
